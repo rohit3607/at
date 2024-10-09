@@ -35,7 +35,7 @@ DB_NAME = os.environ.get("DATABASE_NAME", "filesharexbot")
 FILE_AUTO_DELETE = int(os.getenv("FILE_AUTO_DELETE", "10")) # auto delete in seconds
 
 #force sub channel id, if you want enable force sub
-FORCE_SUB_CHANNEL_1 = int(os.environ.get("FORCE_SUB_CHANNEL_1", "-1002215102799"))
+FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "-1002215102799"))
 FORCE_SUB_CHANNEL_2 = int(os.environ.get("FORCE_SUB_CHANNEL_2", "-1002001392051"))
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))

@@ -62,9 +62,11 @@ async def start_command(client: Client, message: Message):
         codeflix_msgs = []  # List to keep track of sent messages
 
         for msg in messages:
-            caption = (CUSTOM_CAPTION.format(previouscaption="" if not msg.caption else msg.caption.html, 
-                                             filename=msg.document.file_name) if bool(CUSTOM_CAPTION) and bool(msg.document)
-                       else ("" if not msg.caption else msg.caption.html))
+                original_caption = msg.caption.html if msg.caption else ""
+                if CUSTOM_CAPTION:
+                    caption = f"{original_caption}\n\n{CUSTOM_CAPTION}"
+                else:
+                    caption = original_caption
 
             reply_markup = msg.reply_markup if DISABLE_CHANNEL_BUTTON else None
 
@@ -92,8 +94,8 @@ async def start_command(client: Client, message: Message):
         reply_markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton('⚡️ ᴍᴏᴠɪᴇs', url='https://t.me/+QVewP06XCPFiYWZl'),
-                    InlineKeyboardButton('🍁 sᴇʀɪᴇs', url='https://t.me/webseries_flix')
+                    InlineKeyboardButton('⚡️ Backup', url='https://t.me/+JFzZgLbzmGNlNjk9'),
+                    InlineKeyboardButton('🍁 Javs', url='https://t.me/Javpostr')
                 ]
             ]
         )

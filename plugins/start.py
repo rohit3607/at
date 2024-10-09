@@ -62,11 +62,11 @@ async def start_command(client: Client, message: Message):
         codeflix_msgs = []  # List to keep track of sent messages
 
         for msg in messages:
-                original_caption = msg.caption.html if msg.caption else ""
-                if CUSTOM_CAPTION:
-                    caption = f"{original_caption}\n\n{CUSTOM_CAPTION}"
-                else:
-                    caption = original_caption
+            original_caption = msg.caption.html if msg.caption else ""
+            if CUSTOM_CAPTION:
+                caption = f"{original_caption}\n\n{CUSTOM_CAPTION}"
+            else:
+                caption = original_caption
 
             reply_markup = msg.reply_markup if DISABLE_CHANNEL_BUTTON else None
 

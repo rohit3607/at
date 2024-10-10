@@ -4,13 +4,11 @@ pyrofork==2.3.38
 TgCrypto
 pyromod
 humanize
-# --- For-Database ------------ #
 pymongo
 motor
 umongo
 dnspython
 marshmallow
-# --- For-Web-Response ------- #
 pytz
 requests
 bs4

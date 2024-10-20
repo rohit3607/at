@@ -21,7 +21,7 @@ async def start_command(client: Client, message: Message):
         except Exception as e:
             print(f"Error adding user: {e}")
             pass
-    
+
     text = message.text
     if len(text) > 7:
         try:
@@ -31,7 +31,7 @@ async def start_command(client: Client, message: Message):
 
         string = await decode(base64_string)
         argument = string.split("-")
-        
+
         ids = []
         if len(argument) == 3:
             try:
@@ -62,11 +62,9 @@ async def start_command(client: Client, message: Message):
         codeflix_msgs = []  # List to keep track of sent messages
 
         for msg in messages:
-            original_caption = msg.caption.html if msg.caption else ""
-            if CUSTOM_CAPTION:
-                caption = f"{original_caption}\n\n{CUSTOM_CAPTION}"
-            else:
-                caption = original_caption
+            caption = (CUSTOM_CAPTION.format(previouscaption="" if not msg.caption else msg.caption.html, 
+                                             filename=msg.document.file_name) if bool(CUSTOM_CAPTION) and bool(msg.document)
+                       else ("" if not msg.caption else msg.caption.html))
 
             reply_markup = msg.reply_markup if DISABLE_CHANNEL_BUTTON else None
 
@@ -94,8 +92,8 @@ async def start_command(client: Client, message: Message):
         reply_markup = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton('⚡️ Backup', url='https://t.me/+JFzZgLbzmGNlNjk9'),
-                    InlineKeyboardButton('🍁 Javs', url='https://t.me/Javpostr')
+                    InlineKeyboardButton('⚡️ ᴍᴏᴠɪᴇs', url='https://t.me/+QVewP06XCPFiYWZl'),
+                    InlineKeyboardButton('🍁 sᴇʀɪᴇs', url='https://t.me/webseries_flix')
                 ]
             ]
         )
@@ -162,7 +160,7 @@ async def send_text(client: Bot, message: Message):
         blocked = 0
         deleted = 0
         unsuccessful = 0
-        
+
         pls_wait = await message.reply("<i>Broadcasting Message.. This will Take Some Time</i>")
         for chat_id in query:
             try:
@@ -183,7 +181,7 @@ async def send_text(client: Bot, message: Message):
                 unsuccessful += 1
                 pass
             total += 1
-        
+
         status = f"""<b><u>Broadcast Completed</u></b>
 
 <b>Total Users :</b> <code>{total}</code>
@@ -191,7 +189,7 @@ async def send_text(client: Bot, message: Message):
 <b>Blocked Users :</b> <code>{blocked}</code>
 <b>Deleted Accounts :</b> <code>{deleted}</code>
 <b>Unsuccessful :</b> <code>{unsuccessful}</code>"""
-        
+
         return await pls_wait.edit(status)
 
     else:
@@ -202,7 +200,7 @@ async def send_text(client: Bot, message: Message):
 # Function to handle file deletion
 async def delete_files(messages, client, k):
     await asyncio.sleep(FILE_AUTO_DELETE)  # Wait for the duration specified in config.py
-    
+
     for msg in messages:
         try:
             await client.delete_messages(chat_id=msg.chat.id, message_ids=[msg.id])

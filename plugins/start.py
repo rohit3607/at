@@ -62,11 +62,12 @@ async def start_command(client: Client, message: Message):
         codeflix_msgs = []  # List to keep track of sent messages
 
         for msg in messages:
-            caption = (CUSTOM_CAPTION.format(previouscaption="" if not msg.caption else msg.caption.html, 
-                                             filename=msg.document.file_name) if bool(CUSTOM_CAPTION) and bool(msg.document)
-                       else ("" if not msg.caption else msg.caption.html))
-
-            reply_markup = msg.reply_markup if DISABLE_CHANNEL_BUTTON else None
+            original_caption = msg.caption.html if msg.caption else ""
+            if CUSTOM_CAPTION:
+                caption = f"{original_caption}\n\n{CUSTOM_CAPTION}"
+            else:
+                caption = original_caption   
+            reply_markup = None 
 
             try:
                 copied_msg = await msg.copy(chat_id=message.from_user.id, caption=caption, parse_mode=ParseMode.HTML, 
